@@ -13,6 +13,20 @@ function [ GPGGA ] = nmeaGPGGA( tline )
 data = strsplit(tline, ',', 'CollapseDelimiters', 0);
 data(1) = [];
 
+GPGGA.Quality = str2num(data{6});
+switch GPGGA.Quality
+    case 0
+        GPGGA.QualityString = 'invalid';
+    case 1
+        GPGGA.QualityString = 'GPS fix';
+    case 2
+        GPGGA.QualityString = 'Diff. GPS fix';
+end
+if GPGGA.Quality==0
+    fprintf('Validation failed\n');
+    return;
+end
+
 GPGGA.Time = data{1};
 GPGGA.Latitude = str2num(data{2}(1:2)) + str2num(data{2}(3:end))/60;
 GPGGA.Longitude = str2num(data{4}(1:3)) + str2num(data{4}(4:end))/60;
@@ -24,15 +38,6 @@ if isequal(data{5},'W')
     GPGGA.Longitude = -GPGGA.Longitude;
 end
 
-GPGGA.Quality = str2num(data{6});
-switch GPGGA.Quality
-    case 0
-        GPGGA.QualityString = 'invalid';
-    case 1
-        GPGGA.QualityString = 'GPS fix';
-    case 2
-        GPGGA.QualityString = 'Diff. GPS fix';
-end
 GPGGA.nSatellites = str2num(data{7});
 GPGGA.HorizontalDilutionPosition = str2num(data{8});
 GPGGA.AntennaAltitude = str2num(data{9});
