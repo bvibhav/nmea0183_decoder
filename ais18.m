@@ -29,6 +29,9 @@ Radio_status = bin2dec(binData(149:168));
 
 Report_Type = messageTypeString(Message_Type);
 
+Speed_Over_Ground = Speed_Over_Ground/10;
+Course_Over_Ground = Course_Over_Ground/10;
+
 varString = {'Message_Type','Repeat_Indicator','MMSI','Regional_Reserved','Speed_Over_Ground','Position_Accuracy','Longitude','Latitude','Course_Over_Ground','True_Heading','Time_Stamp','Regional_reserved','CS_Unit','Display_flag','DSC_flag','Band_flag','Message_22_flag','Assigned','RAIM_flag','Radio_status','Report_Type'};
 outputData = {Message_Type,Repeat_Indicator,MMSI,Regional_Reserved,Speed_Over_Ground,Position_Accuracy,Longitude,Latitude,Course_Over_Ground,True_Heading,Time_Stamp,Regional_reserved,CS_Unit,Display_flag,DSC_flag,Band_flag,Message_22_flag,Assigned,RAIM_flag,Radio_status,Report_Type};
 
